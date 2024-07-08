@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.JournalEntry;
 import com.example.demo.service.JournalEntryService;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +46,6 @@ public ResponseEntity<?> getJournalEntries() {
  public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry entry) {
 
    try {
-      entry.setDate(LocalDateTime.now());
     JournalEntryService.saveEntry(entry);
      return new ResponseEntity<>(entry,HttpStatus.CREATED);
    } catch (Exception e) {

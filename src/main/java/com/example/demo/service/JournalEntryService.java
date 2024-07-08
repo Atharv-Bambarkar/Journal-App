@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,16 +11,27 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.JournalEntry;
 import com.example.demo.repository.JournalEntryRepository;
+
+import lombok.extern.slf4j.Slf4j;
 @Service
+@Slf4j
 public class JournalEntryService {
     
     @Autowired
     private JournalEntryRepository JournalEntryRepository;
 
 
+
     public void saveEntry(JournalEntry entry) {
-        JournalEntryRepository.save(entry);
+        try {
+            entry.setDate(LocalDateTime.now());
+            JournalEntryRepository.save(entry);
+        } catch (Exception e) {
+           log.error("Error saving entry", e);
+        }
     }
+
+
 
     public List<JournalEntry> getJournalEntries() {
         return JournalEntryRepository.findAll();
